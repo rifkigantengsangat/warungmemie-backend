@@ -1,7 +1,6 @@
 <?php
-
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\api;
+use App\Http\Controllers\Controller;
 use App\Models\menu;
 use Illuminate\Http\Request;
 
@@ -35,7 +34,6 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**

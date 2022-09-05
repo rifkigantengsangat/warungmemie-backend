@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Sanctum\HasApiTokens;
 
 class AuthController extends Controller 
 {
@@ -71,7 +72,7 @@ class AuthController extends Controller
                 'message' =>'success Login Successfully',
                 'data'=>$user,
                 'token' =>$token,
-                'token_type'=>'Bearer'
+                'token_type'=>'Bearer',
             ]);
         } catch (\Throwable $th) {
             return response()->json([
@@ -80,9 +81,11 @@ class AuthController extends Controller
 
             ],500);
         }
-           
-        
-        
        
+    }
+    public function logout()
+    {
+     Auth::user()->tokens()->delete();     
+     return response()->json(['meesage'=>'anda Berhasil Logout']); 
     }
 }
