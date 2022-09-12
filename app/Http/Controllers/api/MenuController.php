@@ -1,7 +1,11 @@
 <?php
 namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
-use App\Models\menu;
+use App\Models\Menu;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
+
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -13,7 +17,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        //
+      $menu = Menu::get();
+      return response()->json(['status'=>200,'data'=>$menu]);
     }
 
     /**
@@ -34,6 +39,21 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'image'=> 'required|mimes:jpeg,png,jpg'
+        ]);
+        if($validator->fails()){
+            return response()->json(['status' =>402,'error'=>$validator->errors()]);
+        }
+        $menus = new Menu;
+        $menus->category_id = $request->category_id;
+        $menus->nama = $request->nama;
+        $menus->harga = $request->harga;
+        $filename = time().'.'.$request->image->extension();
+        $request->image->move(public_path('images'),$filename);
+        $menus->image=$filename;
+        $menus->save();
+        return response()->json(['status'=>200,'data'=>$menus]);
     }
 
     /**
@@ -80,4 +100,5 @@ class MenuController extends Controller
     {
         //
     }
+   
 }
