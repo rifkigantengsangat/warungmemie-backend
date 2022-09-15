@@ -6,6 +6,8 @@ use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\MenuController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\TestimoniController;
+use App\Http\Controllers\api\PesananController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,5 +36,6 @@ Route::get('/menu/{id}/testimoni', [TestimoniController::class, 'menuComment']);
 
 Route::post('category',[CategoryController::class, 'store']);
 Route::get('category',[CategoryController::class, 'index']);
-Route::post('category/{id}',[CategoryController::class, 'detailDataCategory']);
+Route::get('category/{slug}',[CategoryController::class, 'detailDataCategory']);
+Route::post('/pesanan',[PesananController::class, 'store'])->middleware('auth:sanctum');
 

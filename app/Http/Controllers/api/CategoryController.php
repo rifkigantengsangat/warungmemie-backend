@@ -44,9 +44,9 @@ class CategoryController extends Controller
       return response()->json(['status' =>200,'data'=>$category],200);
     }
 
-   public function detailDataCategory($id)
+   public function detailDataCategory($slug)
    {
-    $categoryDetail = Category::where('id',$id)->with(['menus'])->get();
+    $categoryDetail = Category::where('slug',$slug)->with(['menus'])->get();
     return response()->json(['status' =>200,'data'=>$categoryDetail],200);
    }
    

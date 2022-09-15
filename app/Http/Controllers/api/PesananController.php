@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pesanan;
+use App\Models\Pesanan;
 use Illuminate\Http\Request;
 
 class PesananController extends Controller
@@ -35,7 +35,16 @@ class PesananController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pesanan = new Pesanan;
+        $pesanan->user_id = $request->user_id;
+        $pesanan->menu_id = $request->menu_id;
+        $pesanan->jumlah_pesanan = $request->jumlah_pesanan;
+        $pesanan->save();
+        return response()->json([
+            'status'=>200,
+            'data'=>$pesanan
+        ],200);
+
     }
 
     /**

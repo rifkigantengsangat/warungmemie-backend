@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('pesanans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('menu_id')->constrained();
+            $table->integer('jumlah_pesanan');
+            $table->integer('total_harga');
+            $table->string('no_hp');
             $table->timestamps();
         });
     }
